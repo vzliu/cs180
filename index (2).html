@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Project 3-2  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">Assignment 3-2: Additional Features to PathTracer</h1>
+    <h2 align="middle">Vivian Liu, Annie Lin</h2>
+    <h2 align="middle">Website URL: <a href="https://cal-cs184-student.github.io/project-webpages-sp23-vzliu/proj3-2/index.html">https://cal-cs184-student.github.io/project-webpages-sp23-vzliu/proj3-2/index.html</a></h2>
+
+<div align="center">
+    <table style="width=100%">
+        <tr>
+            <td align="middle">
+                <img src="pics/1/CBspheres_glass_final_d100_480_360.png" width="480px" />
+                <figcaption align="middle"></figcaption>
+        </tr>
+    </table>
+</div>
+
+    <div class="padded">
+
+        
+        * NOTE: For this project, you will choose TWO out of the four given parts to complete. One of those parts must be Part 1 or Part 2. In other words, you can choose any combination of two parts except the pair (Part 3, Part 4).
+
+
+        <h2 align="middle">Overview</h2>
+        <p>
+            In this project we expanded on our pathtracing renderer by implementing additional features/compatibility for more complicated materials such as mirror and glass materials (Part 1), as well as microfacet materials (Part 2). To implement mirror and glass materials, we first implemented reflection, which would allow us to implement mirror materials since mirror materials only require the reflection property. We then implemented refraction in preparation for our glass material, which requires both reflection and refraction. To implement refraction, we needed to do a bit of math with Snell’s law and equations, and figure out whether vectors/rays were entering or exiting, and what type of material (air or an object) they were entering/exiting. Finally, to implement glass material, we combined both reflection and refraction, and used Schlick’s approximation to give a coin-flip probability of either reflecting or refracting. To implement microfacet materials (isotropic rough conductors that can only reflect), we first implemented the microfacet BRDF using some math and function calling. We next implemented the normal distribution function so we can query the function later on for perfectly specular microfacets. We also implement the Fresnel term, which allows us to represent different materials and their respective conductors. Finally, we implement importance sampling so we can properly sample the microfacet BRDF and represent microfacet models.
+            <br><br>
+            We learned how we can render very interesting and exciting complicated materials without too much extra work, just a bit of math and physics is needed to produce intriguing results.
+        </p>
+        <br>
+
+        <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
+
+        <p>
+            To implement mirror and glass materials, we need to implement both reflection as well as refraction first. We started by implementing reflection first, which we accomplished in BSDF::reflect() by implementing perfect specular reflection (w_o + w_i = 2*cos(theta)*n) and storing the result in wi.
+            <br>
+            <br>
+            We can now implement mirror materials since this just consists of the reflection property and we do this in the MirrorBSDF::sample_f() function. We do this by setting the PDF to 1 since we aren’t sampling and since we are just reflecting, using reflect() to set our wi direction vector, and returning reflectance divided by the absolute cosine of our theta.
+            <br>
+            <br>
+            Next, in preparation for our glass material, which has both reflection and refraction, we implement refraction in BSDF::refract(). We first check if wo.z is positive or negative to determine whether we are entering an object/non-air (w_o starts outside) material or exiting from an object into air (w_o starts inside the material) respectively. If positive, we set eta to be 1.0/ior (old index of refraction is air/new index of refraction is non-air material) and we can use Snell’s law (sqrt(1 - (eta^2) * (1-(cos(theta))^2))) to determine the resulting wi direction vector from refraction, and if positive then we simply set eta to be ior (ior/air is 1.0). Before that however, we want to check for total internal reflection (light ray completely reflected) in which case we can just return false because refraction doesn’t occur. We accomplish our check for total internal reflection by checking the term inside the square root of Snell’s law and check to see if  1−η^2​​(1−(cos​​θ)^2)<0. However, if refraction does occur, then we set the x, y, and z fields of w_i, our exiting vector/ray, to the corresponding values determined by Snell’s law, and where wi.z is the opposite sign of wo.z.
+            <br>
+            <br>
+            In RefractionCSDF::sample_f(), we check for total internal reflection, assign eta to the correct value like we did previously in refract(), and return transmittance / abs_cos_theta(*wi) / eta^2. Finally, we can implement our glass material in GlassBSDF::sample_f(), which we do by checking to see if refraction happens, and if it does, then we compute Schlick’s reflection coefficient (R), which gives a coin-flip probability of either refracting or reflecting. If reflecting, then we return R * reflectance / abs_cos_theta(*wi) and if refracting, then we return (1-R) * transmittance / abs_cos_theta(*wi) / eta^2.
+
+        </p>
+
+        <p><b>
+            Show a sequence of six images of scene `CBspheres.dae` rendered with `max_ray_depth` set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.
+        </b></p>
+        <p><b>
+            Point out the new multibounce effects that appear in each image.             Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
+
+        </b></p>
+        <!-- Example of including multiple figures -->
+        <p align="middle" >256 samples per pixel, 4 samples per light each</p>
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d0_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 0
+                            <br>
+                            <br>
+                            In max_ray_depth = 0, we observe that the image is completely black except for the light source on the ceiling. This makes sense because no bounces have occurred yet and the only light enters the camera.
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d1_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 1
+                            <br>
+                            <br>
+                            In max_ray_depth = 1, we observe that the scene is now lit up with the walls visible as well as the spheres but they are black except for the hightlight on the top. This happens because the spheres are both reflective so after one bounce (light from the light source on the ceiling hits and bounces off the spheres before reflecting toward the camera) we see the reflection from only the area light on the surface of the spheres. Additionally, the right sphere has refractive properties in addition to reflection which is why the highlight on top of the sphere is not as solid as the highlight on the left sphere.
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d2_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 2
+                        <br><br>
+                            In max_ray_depth = 2, we observe that the scene is fully illuminated and the left sphere is reflected while the shadow remains dark, but the right sphere is still completely black/dark while being somewhat reflective along with some refraction as shown with the highlight. This is because we need one more bounce to reflect the reflection of the right sphere in the left sphere and to reflect the room in the right sphere. What we see in the scene occurs because in addition to the reflection from depth 1, the light also bounces off each sphere and into each other before reflecting toward the camera.
+
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d3_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 3
+                        <br><br>
+                            In max_ray_depth = 3, we observe that both spheres are fully reflective now but the left sphere still shows the reflection of the right sphere as black/dark since we need one more bounce from the the right sphere to the left in order to reflect the new change. The right sphere is still reflecting a darker reflection than it should be reflecting. The shadows of both spheres are also beginning to reflect similar colors to what is reflected in each sphere, and the right sphere is refracting some light on the floor beneath it. This happens because in addition to what we got with 2 light bounces, we now can bounce once more before going towards the camera (reflection shown in right sphere, shadow of left sphere lighter).
+
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d4_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 4
+                        <br><br>
+                            In max_ray_depth = 4, we observe that the left sphere correctly reflects the scene and the right sphere, the right sphere reflects the room correctly and with lighter colors, and the right sphere also refracts light on the wall. This occurs because compared to 3 light bounces, the light from the right sphere bounces off into the left sphere for the correct reflection and light bouncing into the right sphere allows for a lighter reflection.
+
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d5_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 5
+                        <br><br>
+                            In max_ray_depth = 5, we observe that there seems to be less and less changes with each bounce here on out but the shadow of the right sphere appears to be ever so slightly lighter than before. This happens because the additional bounce compared to before allows for the shadow colors to better merge/blend together.
+
+
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="pics/1/CBspheres_glass_final_d100_480_360.png" align="middle" width="400px"/>
+                        <figcaption>max_ray_depth = 100
+                        <br><br>
+                            In max_ray_depth = 100, we observe that both spheres are fully reflective and the right sphere especially shows more refraction than before with the highlights on the top of the sphere. The shadows of both spheres also appear much smoother and with more color reflecting the colors of what is reflected in each respective sphere. The overall scene also appears brighter and this happens and makes sense because the many bounces of light allow for more colors to merge/blend together which is more representative of all the elements in the scene.
+
+
+
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <!--
+        <p><b>
+            Point out the new multibounce effects that appear in each image.             Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
+        </b></p>
+        <p>
+            In max_ray_depth = 0, we observe that the image is completely black except for the light source on the ceiling. This makes sense because no bounces have occurred yet and the only light enters the camera.
+            <br><br>
+            In max_ray_depth = 1, we observe that the scene is now lit up with the walls visible as well as the spheres but they are black except for the hightlight on the top. This happens because the spheres are both reflective so after one bounce (light from the light source on the ceiling hits and bounces off the spheres before reflecting toward the camera) we see the reflection from only the area light on the surface of the spheres. Additionally, the right sphere has refractive properties in addition to reflection which is why the highlight on top of the sphere is not as solid as the highlight on the left sphere.
+            <br><br>
+            In max_ray_depth = 2, we observe that the scene is fully illuminated and the left sphere is reflected while the shadow remains dark, but the right sphere is still completely black/dark while being somewhat reflective along with some refraction as shown with the highlight. This is because we need one more bounce to reflect the reflection of the right sphere in the left sphere and to reflect the room in the right sphere. What we see in the scene occurs because in addition to the reflection from depth 1, the light also bounces off each sphere and into each other before reflecting toward the camera.
+            <br><br>
+            In max_ray_depth = 3, we observe that both spheres are fully reflective now but the left sphere still shows the reflection of the right sphere as black/dark since we need one more bounce from the the right sphere to the left in order to reflect the new change. The right sphere is still reflecting a darker reflection than it should be reflecting. The shadows of both spheres are also beginning to reflect similar colors to what is reflected in each sphere, and the right sphere is refracting some light on the floor beneath it. This happens because in addition to what we got with 2 light bounces, we now can bounce once more before going towards the camera (reflection shown in right sphere, shadow of left sphere lighter).
+            <br><br>
+            In max_ray_depth = 4, we observe that the left sphere correctly reflects the scene and the right sphere, the right sphere reflects the room correctly and with lighter colors, and the right sphere also refracts light on the wall. This occurs because compared to 3 light bounces, the light from the right sphere bounces off into the left sphere for the correct reflection and light bouncing into the right sphere allows for a lighter reflection.
+            <br><br>
+            In max_ray_depth = 5, we observe that there seems to be less and less changes with each bounce here on out but the shadow of the right sphere appears to be ever so slightly lighter than before. This happens because the additional bounce compared to before allows for the shadow colors to better merge/blend together.
+            <br><br>
+            In max_ray_depth = 100, we observe that both spheres are fully reflective and the right sphere especially shows more refraction than before with the highlights on the top of the sphere. The shadows of both spheres also appear much smoother and with more color reflecting the colors of what is reflected in each respective sphere. The overall scene also appears brighter and this happens and makes sense because the many bounces of light allow for more colors to merge/blend together which is more representative of all the elements in the scene.
+        </p>
+        -->
+        <p>
+            All in all, up until after max_ray_depth = 3, our images don’t look “quite right” due to there not being enough light bounces to render all the elements in the scene properly yet. We need 5 light bounces minimum to make the scene look “correct” to the eye (right reflections in each sphere and right refractions for the right sphere and on the wall).
+        </p>
+        <br>
+
+
+        <h3 align="middle">Part 2. Microfacet Material</h3>
+
+        <p>
+            To add support for microfacet models, we implement the microfacet BRDF, the normal distribution function (which we define how the microfacets' normals are distributed using Beckmann distribution), and the air-conductor Fresnel term (which we calculate for R, G, B channels, each of which has a fixed wavelength). Lastly, we add importance sampling suitable for Beckmann distribution by sampling θ_h and ϕ_h from pdfs p_θ and p_ϕ, respectively. Then, we combine θ_h and ϕ_h to form the sampled microfact normal h so that we can compute w_i, which is the reflection of w_o about h. We also calculate the pdfs of sampling h with respect to θ and ϕ, then calculate the pdf of sampling w_i. Finally, we return the Microfacet BRDF evaluated at the sampled values.
+        </p>
+
+        <p><b>
+            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with $\alpha$ set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
+        </b></p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_005_alpha.png" align="middle" width="400px"/>
+                        <figcaption> α = 0.005
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_05_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.05
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_25_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.25
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_5_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.5
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p>
+            The α value determines the roughness of the material surface. With lower α values, the surface of the dragon has a more glossy and specular appearance. With increased α values, the surface appears more rough and opaque.
+        </p>
+        <br>
+        <p><b>
+            Show two images of scene `CBbunny_microfacet_cu.dae` rendered using cosine hemisphere sampling (default) and your importance sampling. The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Briefly discuss their difference.
+        </b></p>
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBbunny_microfacet_cu_hemisphere_sampling.png" align="middle" width="400px"/>
+                        <figcaption> Cosine Hemisphere Sampling
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/2/CBbunny_microfacet_cu_importance_sampling.png" align="middle" width="400px"/>
+                        <figcaption> Importance Sampling
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            When comparing the two images, we can see that the image rendered with cosine hemisphere sampling produces a noisier result than the image rendered with importance sampling. This is because cosine hemisphere sampling involves sampling over a hemisphere evenly, and it is useful for sampling diffuse BRDFs, but not for microfacet material. Importance sampling with respect to Beckmann distribution prioritizes samples where light is expected to have a greater impact on the image, which makes it useful for sampling microfacet BRDFs, and produces less noisy results with the same number of samples.
+        </p>
+        <br>
+        <p><b>
+            Show at least one image with some other conductor material, replacing `eta` and `k`. Note that you should look up values for real data rather than modifying them arbitrarily. Tell us what kind of material your parameters correspond to. 
+        </b></p>
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBbunny_microfacet_co.png" align="middle" width="400px"/>
+                        <figcaption> Cobalt Material
+                        </figcaption>
+                        <br>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <p>
+            This image was rendered with a sample rate of 64 samples per pixel, 1 sample per light, 5 bounces, and α set to 0.05. We used cobalt as our conductor material, with a η vector of (2.1849, 2.0500, 1.7925) and a k vector of (4.0971, 3.8200, 3.3775), with the first, second, and third elements of the vectors being the scalar values at at wavelengths 614 nm (red), 549 nm (green) and 466 nm (blue).
+        </p>
+        <br>
+
+
+        <h3 align="middle">Reflection</h3>
+        <p>
+            Project 3-2 was less challenging than 3-1 but it had more math, and with the aftermath of midterms, we were able to work together collaboratively all the way through. We worked together for parts 1 and 2 by meeting online synchronously through Discord. We found out that there was a “Code with Me” feature in CLion after completing 3-1 but we forgot to use this feature for 3-2 (we will use it for the next project!), which should be extremely helpful for future projects, as we can collaborate more efficiently since we have to meet online a lot due to schedule conflicts during the day. Throughout this project, we learned how we can render very interesting and exciting complicated materials with just a bit of math and physics.
+
+        </p>
+
+    </div>
+</body>
+</html>
