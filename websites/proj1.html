@@ -15,25 +15,25 @@
 </head>
 <body>
 <br />
-<h1 align="middle">Project 1</h1>
+<h1 align="middle">CS 180 Project 1</h1>
     <h2 align="middle">Vivian Liu</h2>
     <h2 align="middle">Website URL: <a href="https://vzliu.github.io/cs180/websites/proj1.html">https://vzliu.github.io/cs180/websites/proj1.html</a></h2>
 
     <div class="padded">
 
         
-        Website template credit to CS 184
+        <center>Website template credit to CS 184</center>
 
 
         <h2 align="middle">Overview</h2>
         <p>
-            In this project we expanded on our pathtracing renderer by implementing additional features/compatibility for more complicated materials such as mirror and glass materials (Part 1), as well as microfacet materials (Part 2). To implement mirror and glass materials, we first implemented reflection, which would allow us to implement mirror materials since mirror materials only require the reflection property. We then implemented refraction in preparation for our glass material, which requires both reflection and refraction. To implement refraction, we needed to do a bit of math with Snell’s law and equations, and figure out whether vectors/rays were entering or exiting, and what type of material (air or an object) they were entering/exiting. Finally, to implement glass material, we combined both reflection and refraction, and used Schlick’s approximation to give a coin-flip probability of either reflecting or refracting. To implement microfacet materials (isotropic rough conductors that can only reflect), we first implemented the microfacet BRDF using some math and function calling. We next implemented the normal distribution function so we can query the function later on for perfectly specular microfacets. We also implement the Fresnel term, which allows us to represent different materials and their respective conductors. Finally, we implement importance sampling so we can properly sample the microfacet BRDF and represent microfacet models.
+            In this project I extracted three color channels from images and using image processing techniques, aligned the images such that the RGB
+            channels would create a colored image.
             <br><br>
-            We learned how we can render very interesting and exciting complicated materials without too much extra work, just a bit of math and physics is needed to produce intriguing results.
         </p>
         <br>
 
-        <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
+        <h3 align="middle">Part 1: Single-Scale Images</h3>
 
         <p>
             To implement mirror and glass materials, we need to implement both reflection as well as refraction first. We started by implementing reflection first, which we accomplished in BSDF::reflect() by implementing perfect specular reflection (w_o + w_i = 2*cos(theta)*n) and storing the result in wi.
@@ -163,10 +163,10 @@
         <br>
 
 
-        <h3 align="middle">Part 2. Microfacet Material</h3>
+        <h3 align="middle">Part 2: Multiple Scale Image Pyramid</h3>
 
         <p>
-            To add support for microfacet models, we implement the microfacet BRDF, the normal distribution function (which we define how the microfacets' normals are distributed using Beckmann distribution), and the air-conductor Fresnel term (which we calculate for R, G, B channels, each of which has a fixed wavelength). Lastly, we add importance sampling suitable for Beckmann distribution by sampling θ_h and ϕ_h from pdfs p_θ and p_ϕ, respectively. Then, we combine θ_h and ϕ_h to form the sampled microfact normal h so that we can compute w_i, which is the reflection of w_o about h. We also calculate the pdfs of sampling h with respect to θ and ϕ, then calculate the pdf of sampling w_i. Finally, we return the Microfacet BRDF evaluated at the sampled values.
+            To speedup the processing of .tif images, I worked off the foundation I built in part 1
         </p>
 
         <p><b>
