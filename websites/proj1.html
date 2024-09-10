@@ -36,28 +36,12 @@
         <h3 align="middle">Part 1: Single-Scale Images</h3>
 
         <p>
-            To implement mirror and glass materials, we need to implement both reflection as well as refraction first. We started by implementing reflection first, which we accomplished in BSDF::reflect() by implementing perfect specular reflection (w_o + w_i = 2*cos(theta)*n) and storing the result in wi.
-            <br>
-            <br>
-            We can now implement mirror materials since this just consists of the reflection property and we do this in the MirrorBSDF::sample_f() function. We do this by setting the PDF to 1 since we aren’t sampling and since we are just reflecting, using reflect() to set our wi direction vector, and returning reflectance divided by the absolute cosine of our theta.
-            <br>
-            <br>
-            Next, in preparation for our glass material, which has both reflection and refraction, we implement refraction in BSDF::refract(). We first check if wo.z is positive or negative to determine whether we are entering an object/non-air (w_o starts outside) material or exiting from an object into air (w_o starts inside the material) respectively. If positive, we set eta to be 1.0/ior (old index of refraction is air/new index of refraction is non-air material) and we can use Snell’s law (sqrt(1 - (eta^2) * (1-(cos(theta))^2))) to determine the resulting wi direction vector from refraction, and if positive then we simply set eta to be ior (ior/air is 1.0). Before that however, we want to check for total internal reflection (light ray completely reflected) in which case we can just return false because refraction doesn’t occur. We accomplish our check for total internal reflection by checking the term inside the square root of Snell’s law and check to see if  1−η^2​​(1−(cos​​θ)^2)<0. However, if refraction does occur, then we set the x, y, and z fields of w_i, our exiting vector/ray, to the corresponding values determined by Snell’s law, and where wi.z is the opposite sign of wo.z.
-            <br>
-            <br>
-            In RefractionCSDF::sample_f(), we check for total internal reflection, assign eta to the correct value like we did previously in refract(), and return transmittance / abs_cos_theta(*wi) / eta^2. Finally, we can implement our glass material in GlassBSDF::sample_f(), which we do by checking to see if refraction happens, and if it does, then we compute Schlick’s reflection coefficient (R), which gives a coin-flip probability of either refracting or reflecting. If reflecting, then we return R * reflectance / abs_cos_theta(*wi) and if refracting, then we return (1-R) * transmittance / abs_cos_theta(*wi) / eta^2.
-
+           For the single-scale low resolution images, I iterated over a [-15, 15] window of displacements, keeping track of the (x, y) displacements 
+            with the best score. I arbitrarily chose to use Euclidean distance, sqrt(sum(sum((image1-image2).^2))), as my scoring metric. I crop 10% of 
+            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
         </p>
 
-        <p><b>
-            Show a sequence of six images of scene `CBspheres.dae` rendered with `max_ray_depth` set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.
-        </b></p>
-        <p><b>
-            Point out the new multibounce effects that appear in each image.             Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
-
-        </b></p>
-        <!-- Example of including multiple figures -->
-        <p align="middle" >256 samples per pixel, 4 samples per light each</p>
+        
         <div align="middle">
             <table style="width:100%">
                 <tr align="center">
@@ -137,28 +121,9 @@
             </table>
         </div>
         <br>
-        <!--
-        <p><b>
-            Point out the new multibounce effects that appear in each image.             Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
-        </b></p>
+        
         <p>
-            In max_ray_depth = 0, we observe that the image is completely black except for the light source on the ceiling. This makes sense because no bounces have occurred yet and the only light enters the camera.
-            <br><br>
-            In max_ray_depth = 1, we observe that the scene is now lit up with the walls visible as well as the spheres but they are black except for the hightlight on the top. This happens because the spheres are both reflective so after one bounce (light from the light source on the ceiling hits and bounces off the spheres before reflecting toward the camera) we see the reflection from only the area light on the surface of the spheres. Additionally, the right sphere has refractive properties in addition to reflection which is why the highlight on top of the sphere is not as solid as the highlight on the left sphere.
-            <br><br>
-            In max_ray_depth = 2, we observe that the scene is fully illuminated and the left sphere is reflected while the shadow remains dark, but the right sphere is still completely black/dark while being somewhat reflective along with some refraction as shown with the highlight. This is because we need one more bounce to reflect the reflection of the right sphere in the left sphere and to reflect the room in the right sphere. What we see in the scene occurs because in addition to the reflection from depth 1, the light also bounces off each sphere and into each other before reflecting toward the camera.
-            <br><br>
-            In max_ray_depth = 3, we observe that both spheres are fully reflective now but the left sphere still shows the reflection of the right sphere as black/dark since we need one more bounce from the the right sphere to the left in order to reflect the new change. The right sphere is still reflecting a darker reflection than it should be reflecting. The shadows of both spheres are also beginning to reflect similar colors to what is reflected in each sphere, and the right sphere is refracting some light on the floor beneath it. This happens because in addition to what we got with 2 light bounces, we now can bounce once more before going towards the camera (reflection shown in right sphere, shadow of left sphere lighter).
-            <br><br>
-            In max_ray_depth = 4, we observe that the left sphere correctly reflects the scene and the right sphere, the right sphere reflects the room correctly and with lighter colors, and the right sphere also refracts light on the wall. This occurs because compared to 3 light bounces, the light from the right sphere bounces off into the left sphere for the correct reflection and light bouncing into the right sphere allows for a lighter reflection.
-            <br><br>
-            In max_ray_depth = 5, we observe that there seems to be less and less changes with each bounce here on out but the shadow of the right sphere appears to be ever so slightly lighter than before. This happens because the additional bounce compared to before allows for the shadow colors to better merge/blend together.
-            <br><br>
-            In max_ray_depth = 100, we observe that both spheres are fully reflective and the right sphere especially shows more refraction than before with the highlights on the top of the sphere. The shadows of both spheres also appear much smoother and with more color reflecting the colors of what is reflected in each respective sphere. The overall scene also appears brighter and this happens and makes sense because the many bounces of light allow for more colors to merge/blend together which is more representative of all the elements in the scene.
-        </p>
-        -->
-        <p>
-            All in all, up until after max_ray_depth = 3, our images don’t look “quite right” due to there not being enough light bounces to render all the elements in the scene properly yet. We need 5 light bounces minimum to make the scene look “correct” to the eye (right reflections in each sphere and right refractions for the right sphere and on the wall).
+            All in all, while this approach worked for the lower resolution images depicted above, it was too inefficient for the higher resolution .tif images.
         </p>
         <br>
 
@@ -166,12 +131,19 @@
         <h3 align="middle">Part 2: Multiple Scale Image Pyramid</h3>
 
         <p>
-            To speedup the processing of .tif images, I worked off the foundation I built in part 1
+            To speedup the processing of .tif images, I worked off the foundation I built in part 1. However, instead of working with the full-size 
+            image like in part 1, I rescaled the images first by a factor of 0.5. Then, I used the displacements from my recursive calls to adjust the 
+            shifted channel, before adding additional displacements and scaling up to account for the downsizing from earlier. 
+
+            In other words, I started with the smallest image and increased the image size as I went down the pyramid while adjusting the estimate (based off
+            the previous estimate). This drastically reduced the image processing times to 1 minute or less. 
+
+            Again, I crop 10% of 
+            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
         </p>
 
-        <p><b>
-            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with $\alpha$ set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
-        </b></p>
+
+        <p align="middle" >Note: Some images don't display well before implementing Sobel edge detection (please see Bells and Whistles section)</p>
 
 
         <div align="middle">
@@ -259,13 +231,48 @@
         </p>
         <br>
 
+        <h3 align="middle">Part 3: Bells and Whistles (Extra Credit)</h3>
 
-        <h3 align="middle">Reflection</h3>
         <p>
-            Project 3-2 was less challenging than 3-1 but it had more math, and with the aftermath of midterms, we were able to work together collaboratively all the way through. We worked together for parts 1 and 2 by meeting online synchronously through Discord. We found out that there was a “Code with Me” feature in CLion after completing 3-1 but we forgot to use this feature for 3-2 (we will use it for the next project!), which should be extremely helpful for future projects, as we can collaborate more efficiently since we have to meet online a lot due to schedule conflicts during the day. Throughout this project, we learned how we can render very interesting and exciting complicated materials with just a bit of math and physics.
-
+            Some images, such as the Emir and
         </p>
 
+
+        <p align="middle" >256 samples per pixel, 4 samples per light each</p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_005_alpha.png" align="middle" width="400px"/>
+                        <figcaption> α = 0.005
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_05_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.05
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_25_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.25
+                        </figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="pics/2/CBdragon_microfacet_au_5_alpha.png" align="middle" width="400px"/>
+                        <figcaption>α = 0.5
+                        </figcaption>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>
