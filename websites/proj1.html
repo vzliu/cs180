@@ -46,78 +46,22 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="pics/1/CBspheres_glass_final_d0_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 0
-                            <br>
-                            <br>
-                            In max_ray_depth = 0, we observe that the image is completely black except for the light source on the ceiling. This makes sense because no bounces have occurred yet and the only light enters the camera.
-                        </figcaption>
+                        <img src="images/monastery.png" align="middle" width="400px"/>
                         <br>
                     </td>
                     <td>
-                        <img src="pics/1/CBspheres_glass_final_d1_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 1
-                            <br>
-                            <br>
-                            In max_ray_depth = 1, we observe that the scene is now lit up with the walls visible as well as the spheres but they are black except for the hightlight on the top. This happens because the spheres are both reflective so after one bounce (light from the light source on the ceiling hits and bounces off the spheres before reflecting toward the camera) we see the reflection from only the area light on the surface of the spheres. Additionally, the right sphere has refractive properties in addition to reflection which is why the highlight on top of the sphere is not as solid as the highlight on the left sphere.
-                        </figcaption>
+                        <img src="images/cathedral.png" align="middle" width="400px"/>
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="pics/1/CBspheres_glass_final_d2_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 2
-                        <br><br>
-                            In max_ray_depth = 2, we observe that the scene is fully illuminated and the left sphere is reflected while the shadow remains dark, but the right sphere is still completely black/dark while being somewhat reflective along with some refraction as shown with the highlight. This is because we need one more bounce to reflect the reflection of the right sphere in the left sphere and to reflect the room in the right sphere. What we see in the scene occurs because in addition to the reflection from depth 1, the light also bounces off each sphere and into each other before reflecting toward the camera.
-
-                        </figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="pics/1/CBspheres_glass_final_d3_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 3
-                        <br><br>
-                            In max_ray_depth = 3, we observe that both spheres are fully reflective now but the left sphere still shows the reflection of the right sphere as black/dark since we need one more bounce from the the right sphere to the left in order to reflect the new change. The right sphere is still reflecting a darker reflection than it should be reflecting. The shadows of both spheres are also beginning to reflect similar colors to what is reflected in each sphere, and the right sphere is refracting some light on the floor beneath it. This happens because in addition to what we got with 2 light bounces, we now can bounce once more before going towards the camera (reflection shown in right sphere, shadow of left sphere lighter).
-
-                        </figcaption>
+                        <img src="images/tobolsk" align="middle" width="400px"/>
                         <br>
                     </td>
                 </tr>
-                <tr align="center">
-                    <td>
-                        <img src="pics/1/CBspheres_glass_final_d4_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 4
-                        <br><br>
-                            In max_ray_depth = 4, we observe that the left sphere correctly reflects the scene and the right sphere, the right sphere reflects the room correctly and with lighter colors, and the right sphere also refracts light on the wall. This occurs because compared to 3 light bounces, the light from the right sphere bounces off into the left sphere for the correct reflection and light bouncing into the right sphere allows for a lighter reflection.
-
-                        </figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="pics/1/CBspheres_glass_final_d5_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 5
-                        <br><br>
-                            In max_ray_depth = 5, we observe that there seems to be less and less changes with each bounce here on out but the shadow of the right sphere appears to be ever so slightly lighter than before. This happens because the additional bounce compared to before allows for the shadow colors to better merge/blend together.
-
-
-                        </figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="pics/1/CBspheres_glass_final_d100_480_360.png" align="middle" width="400px"/>
-                        <figcaption>max_ray_depth = 100
-                        <br><br>
-                            In max_ray_depth = 100, we observe that both spheres are fully reflective and the right sphere especially shows more refraction than before with the highlights on the top of the sphere. The shadows of both spheres also appear much smoother and with more color reflecting the colors of what is reflected in each respective sphere. The overall scene also appears brighter and this happens and makes sense because the many bounces of light allow for more colors to merge/blend together which is more representative of all the elements in the scene.
-
-
-
-                        </figcaption>
-                        <br>
-                    </td>
-                </tr>
+                
+                
             </table>
         </div>
         <br>
@@ -143,134 +87,112 @@
         </p>
 
 
-        <p align="middle" >Note: Some images don't display well before implementing Sobel edge detection (please see Bells and Whistles section)</p>
+        <p align="middle" >Not all photos are displayed due to most of them looking similar to photos in the next section. Note: Some images don't display well before implementing Sobel edge detection (please see Bells and Whistles section)</p>
 
 
         <div align="middle">
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_005_alpha.png" align="middle" width="400px"/>
-                        <figcaption> α = 0.005
-                        </figcaption>
+                        <img src="images/emir_without.png" align="middle" width="400px"/>
                         <br>
                     </td>
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_05_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.05
-                        </figcaption>
+                        <img src="images/train_without.png" align="middle" width="400px"/>
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_25_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.25
-                        </figcaption>
+                        <img src="images/three_generations_without.png" align="middle" width="400px"/>
                         <br>
                     </td>
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_5_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.5
-                        </figcaption>
+                        <img src="images/self_portrait_without.png" align="middle" width="400px"/>
                         <br>
                     </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/lady_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                   
                 </tr>
             </table>
         </div>
 
-        <p>
-            The α value determines the roughness of the material surface. With lower α values, the surface of the dragon has a more glossy and specular appearance. With increased α values, the surface appears more rough and opaque.
-        </p>
+       
         <br>
-        <p><b>
-            Show two images of scene `CBbunny_microfacet_cu.dae` rendered using cosine hemisphere sampling (default) and your importance sampling. The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Briefly discuss their difference.
-        </b></p>
+       
 
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="pics/2/CBbunny_microfacet_cu_hemisphere_sampling.png" align="middle" width="400px"/>
-                        <figcaption> Cosine Hemisphere Sampling
-                        </figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="pics/2/CBbunny_microfacet_cu_importance_sampling.png" align="middle" width="400px"/>
-                        <figcaption> Importance Sampling
-                        </figcaption>
-                        <br>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <p>
-            When comparing the two images, we can see that the image rendered with cosine hemisphere sampling produces a noisier result than the image rendered with importance sampling. This is because cosine hemisphere sampling involves sampling over a hemisphere evenly, and it is useful for sampling diffuse BRDFs, but not for microfacet material. Importance sampling with respect to Beckmann distribution prioritizes samples where light is expected to have a greater impact on the image, which makes it useful for sampling microfacet BRDFs, and produces less noisy results with the same number of samples.
-        </p>
-        <br>
-        <p><b>
-            Show at least one image with some other conductor material, replacing `eta` and `k`. Note that you should look up values for real data rather than modifying them arbitrarily. Tell us what kind of material your parameters correspond to. 
-        </b></p>
-
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="pics/2/CBbunny_microfacet_co.png" align="middle" width="400px"/>
-                        <figcaption> Cobalt Material
-                        </figcaption>
-                        <br>
-                    </td>
-
-                </tr>
-            </table>
-        </div>
-        <p>
-            This image was rendered with a sample rate of 64 samples per pixel, 1 sample per light, 5 bounces, and α set to 0.05. We used cobalt as our conductor material, with a η vector of (2.1849, 2.0500, 1.7925) and a k vector of (4.0971, 3.8200, 3.3775), with the first, second, and third elements of the vectors being the scalar values at at wavelengths 614 nm (red), 549 nm (green) and 466 nm (blue).
-        </p>
-        <br>
+       
 
         <h3 align="middle">Part 3: Bells and Whistles (Extra Credit)</h3>
 
         <p>
-            Some images, such as the Emir and
+            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
+            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
         </p>
-
-
-        <p align="middle" >256 samples per pixel, 4 samples per light each</p>
 
 
         <div align="middle">
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_005_alpha.png" align="middle" width="400px"/>
-                        <figcaption> α = 0.005
-                        </figcaption>
+                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                      
                         <br>
                     </td>
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_05_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.05
-                        </figcaption>
+                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                      
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_25_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.25
-                        </figcaption>
+                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+
                         <br>
                     </td>
                     <td>
-                        <img src="pics/2/CBdragon_microfacet_au_5_alpha.png" align="middle" width="400px"/>
-                        <figcaption>α = 0.5
-                        </figcaption>
+                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+
                         <br>
                     </td>
                 </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                   
             </table>
         </div>
     </div>
