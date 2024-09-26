@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Project 2  |  CS 180</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">CS 180 Project 2</h1>
+    <h2 align="middle">Vivian Liu</h2>
+    <h2 align="middle">Website URL: <a href="https://vzliu.github.io/cs180/websites/proj2.html">https://vzliu.github.io/cs180/websites/proj2.html</a></h2>
+
+    <div class="padded">
+
+        
+        <center>Website template credit to CS 184</center>
+
+
+        <h2 align="middle">Overview</h2>
+        <p>
+            In this project I extracted three color channels from images and using image processing techniques, aligned the images such that the RGB
+            channels would create a colored image.
+            <br><br>
+        </p>
+        <br>
+
+        <h3 align="middle">Part 1: Single-Scale Images</h3>
+
+        <p>
+           For the single-scale low resolution images, I iterated over a [-15, 15] window of displacements, keeping track of the (x, y) displacements 
+            with the best score. I arbitrarily chose to use Euclidean distance, sqrt(sum(sum((image1-image2).^2))), as my scoring metric. I crop 10% of 
+            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
+        </p>
+
+        
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="images/monastery.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/cathedral.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/tobolsk.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                </tr>
+                
+                
+            </table>
+        </div>
+        <br>
+        
+        <p>
+            All in all, while this approach worked for the lower resolution images depicted above, it was too inefficient for the higher resolution .tif images.
+        </p>
+        <br>
+
+
+        <h3 align="middle">Part 2: Multiple Scale Image Pyramid</h3>
+
+        <p>
+            To speedup the processing of .tif images, I worked off the foundation I built in part 1. However, instead of working with the full-size 
+            image like in part 1, I rescaled the images first by a factor of 0.5. Then, I used the displacements from my recursive calls to adjust the 
+            shifted channel, before adding additional displacements and scaling up to account for the downsizing from earlier. 
+
+            In other words, I started with the smallest image and increased the image size as I went down the pyramid while adjusting the estimate (based off
+            the previous estimate). This drastically reduced the image processing times to 1 minute or less. 
+
+            Again, I crop 10% of 
+            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
+        </p>
+
+
+        <p align="middle" >Not all photos are displayed due to most of them looking similar to photos in the next section. Note: Some images don't display well before implementing Sobel edge detection (please see Bells and Whistles section)</p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="images/emir_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/train_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/three_generations_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/self_portrait_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/lady_without.png" align="middle" width="400px"/>
+                        <br>
+                    </td>
+                   
+                </tr>
+            </table>
+        </div>
+
+       
+        <br>
+       
+
+       
+
+        <h3 align="middle">Part 3: Bells and Whistles (Extra Credit)</h3>
+
+        <p>
+            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
+            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
+        </p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                   
+            </table>
+        </div>
+    </div>
+</body>
+</html>
