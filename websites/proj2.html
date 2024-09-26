@@ -25,14 +25,16 @@
         <center>Website template credit to CS 184</center>
 
 
-        <h2 align="middle">Overview</h2>
+        <h1 align="middle">Overview</h1>
         <p>
             In this project I applied a variety of filters to sharpen and blur images, create hybrid images, and did multiresolution blending.
             <br><br>
         </p>
         <br>
 
-        <h3 align="middle">Part 1: Single-Scale Images</h3>
+        <h2 align="middle">Part 1: Fun with Filters</h2>
+
+        <h3 align="middle">Part 1.1: Finite Difference Operator</h3>
 
         <p>
            For the single-scale low resolution images, I iterated over a [-15, 15] window of displacements, keeping track of the (x, y) displacements 
@@ -71,7 +73,7 @@
         <br>
 
 
-        <h3 align="middle">Part 2: Multiple Scale Image Pyramid</h3>
+        <h3 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter</h3>
 
         <p>
             To speedup the processing of .tif images, I worked off the foundation I built in part 1. However, instead of working with the full-size 
@@ -126,8 +128,10 @@
        
 
        
+        <h2 align="middle">Part 2: Fun with Frequencies!</h2>
 
-        <h3 align="middle">Part 3: Bells and Whistles (Extra Credit)</h3>
+        <h3 align="middle">Part 2.1: Image "Sharpening"</h3>
+
 
         <p>
             All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
@@ -206,6 +210,170 @@
                    
             </table>
         </div>
+
+        <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
+
+
+        <p>
+            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
+            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
+        </p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                   
+            </table>
+        </div>
+
+        <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
+
+
+        <p>
+            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
+            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
+        </p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+
+                        <br>
+                    </td>
+                   
+            </table>
+        </div>
+
+        
     </div>
 </body>
 </html>
