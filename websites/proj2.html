@@ -104,9 +104,8 @@
         </div>
 
          <p>
-            <strong>Now we can do the same thing with a single convolution instead of two by creating a derivative of gaussian filters. Convolve the gaussian with D_x and D_y and display the resulting DoG filters as images.</strong>
-            <br>
-            I see that the background noise has been significantly reduced. The edges of the man and camera are also more pronounced.
+            In the second part, I used a single convolution instead of two by creating a derivative of gaussian filters. Since convolutions are associative, we are able
+    to get the same results as with two convolutions.
         </p>
        
        
@@ -177,12 +176,87 @@
                         <figcaption>Sharpen Again</figcaption>
                         <br>
                     </td>
+                </tr>      
+            </table>
+
+             <p>
+            <strong>Also for evaluation, pick a sharp image, blur it and then try to sharpen it again. Compare the original and the sharpened image and report your observations.</strong>
+            <br>
+            Despite the image looking sharper than the blurred version before and my best attempts at sharpening it as much as possible, there is a clear loss of information. This can be seen most with edges in the image, such as along the arms, along the edges of the hat, and along the bench, where the contrast in colors is greatest. The sharpened version is unable to replicate the same smoothness in edges because the blurring from earlier removed the high frequency signals. We are unable to get those back exactly and instead have to use the other high frequency signals now in the sharpened version.
+        </p>
+        </div>
+
+         <h3 align="middle">Part 2.2: Hybrid Images</h3>
+
+
+        <p>
+            For this part, I separated two images into high frequencies and low frequencies, and combine them together to create hybrid images. The 
+            idea behind this is that at far distances, only low frequencies in an image could be seen, while at a closer distance, high frequencies
+            can also be seen. This results in an application of frequencies where you can see two things in one image at different distances.
+        </p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                        <img src="proj2images/taj.png" align="middle" width="400px"/>
+                          <figcaption>Original</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/taj_sharpened.png" align="middle" width="400px"/>
+                      <figcaption>Sharpened</figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="proj2images/brownie_1.jpg" align="middle" width="400px"/>
+                        <figcaption>Original</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/brownie_sharpened_1.png" align="middle" width="400px"/>
+                        <figcaption>Sharpened</figcaption>
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="proj2images/chinatown.jpg" align="middle" width="400px"/>
+                         <figcaption>Original</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/chinatown_sharpened.png" align="middle" width="400px"/>
+                       <figcaption>Sharpened</figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="proj2images/brownie_3.jpg" align="middle" width="400px"/>
+                        <figcaption>Original</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/brownie_blurred.png" align="middle" width="400px"/>
+                        <figcaption>Blur</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/brownie_sharpened_again.png" align="middle" width="400px"/>
+                        <figcaption>Sharpen Again</figcaption>
+                        <br>
+                    </td>
                 </tr>
                
                 
                    
             </table>
         </div>
+
 
         <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
 
