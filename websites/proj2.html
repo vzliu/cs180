@@ -26,10 +26,12 @@
 
 
         <h1 align="middle">Overview</h1>
-        <p>
+        <center>
+            <p>
             In this project I applied a variety of filters to sharpen and blur images, create hybrid images, and did multiresolution blending.
             <br><br>
         </p>
+        </center>
         <br>
 
         <h2 align="middle">Part 1: Fun with Filters</h2>
@@ -53,6 +55,18 @@
                         <br>
                     </td>
                     <td>
+                        <img src="proj2images/d_x.png" align="middle" width="400px"/>
+                        <figcaption>Convolve with D_x (Horizontal)</figcaption>
+                        <br>
+                    </td>
+                </tr>
+                 <tr align="center">
+                    <td>
+                        <img src="proj2images/d_y.png" align="middle" width="400px"/>
+                          <figcaption>Convolve with D_y (Vertical)</figcaption>
+                        <br>
+                    </td>
+                    <td>
                         <img src="proj2images/after.png" align="middle" width="400px"/>
                         <figcaption>Gradient Magnitude</figcaption>
                         <br>
@@ -69,9 +83,10 @@
 
         <h3 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter</h3>
 
-        <p>
+        <p><center>
             As seen above, the finite difference filter produced images that were still rather noisy, especially in the background. To address this, 
             I convolve with a Gaussian filter.
+        </center>
         </p>
 
         <div align="middle">
@@ -79,7 +94,7 @@
                 <tr align="center">
                     <td>
                         <img src="proj2images/1.png" align="middle" width="400px"/>
-                        <figcaption>2 convolutions</figcaption>
+                        <figcaption>2 Convolutions</figcaption>
                         <br>
                     </td>
                 </tr>
@@ -89,8 +104,9 @@
 
          <p>
             <strong>What differences do you see?</strong>
-            <br>
+            <br><center>
             I see that the background noise has been significantly reduced. The edges of the man and camera are also more pronounced.
+                </center>
         </p>
 
         <div align="middle">
@@ -98,7 +114,7 @@
                 <tr align="center">
                     <td>
                        <img src="proj2images/2.png" align="middle" width="400px"/>
-                        <figcaption>1 convolution (Derivative of Gaussian Filters)</figcaption>
+                        <figcaption>1 Convolution (Derivative of Gaussian Filters)</figcaption>
                         <br>
                     </td>
                 </tr>
@@ -162,6 +178,12 @@
                         <br>
                     </td>
                 </tr>
+                </table>
+
+
+
+
+                <table style="width:100%">
                 <tr align="center">
                     <td>
                         <img src="proj2images/brownie_3.jpg" align="middle" width="400px"/>
@@ -314,8 +336,9 @@
         <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
 
 
-        <p>
+        <p><center>
             I implemented Gaussian and Laplacian stacks, which allowed for the combining of an orange and apple (the infamous orapple) later.
+            </center>
         </p>
 
 
@@ -323,108 +346,108 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/g_0.png" align="middle" width="400px"/>
+                        <img src="proj2images/g_0.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/g_1.png" align="middle" width="400px"/>
+                        <img src="proj2images/g_1.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/g_2.png" align="middle" width="400px"/>
+                        <img src="proj2images/g_2.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/g_3.png" align="middle" width="400px"/>
+                        <img src="proj2images/g_3.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/g_4.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/l_0.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_1.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_2.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_3.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_4.png" align="middle" width="400px"/>
+                        <img src="proj2images/g_4.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="proj2images/og_0.png" align="middle" width="400px"/>
+                        <img src="proj2images/l_0.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/og_1.png" align="middle" width="400px"/>
+                        <img src="proj2images/l_1.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/og_2.png" align="middle" width="400px"/>
+                        <img src="proj2images/l_2.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/og_3.png" align="middle" width="400px"/>
+                        <img src="proj2images/l_3.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/og_4.png" align="middle" width="400px"/>
+                        <img src="proj2images/l_4.png" align="middle" width="200px"/>
+                      
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="proj2images/og_0.png" align="middle" width="200px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/og_1.png" align="middle" width="200px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/og_2.png" align="middle" width="200px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/og_3.png" align="middle" width="200px"/>
+                      
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj2images/og_4.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="proj2images/ol_0.png" align="middle" width="400px"/>
+                        <img src="proj2images/ol_0.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/ol_1.png" align="middle" width="400px"/>
+                        <img src="proj2images/ol_1.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/ol_2.png" align="middle" width="400px"/>
+                        <img src="proj2images/ol_2.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/ol_3.png" align="middle" width="400px"/>
+                        <img src="proj2images/ol_3.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/ol_4.png" align="middle" width="400px"/>
+                        <img src="proj2images/ol_4.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
@@ -437,10 +460,11 @@
         <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
 
 
-        <p>
+        <p><center>
             Here I take the Gaussian and Laplacian stacks I implemented previously to blend together the orange and apple. 
             To do this, I first needed a mask which was basically half of each image vertically and created a Gaussian stack for the mask. Then,
             I blended according to the proposed algorithm in the paper, and summed up the results to get the final orapple image.
+            </center>
         </p>
 
 
@@ -448,35 +472,35 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/step1.png" align="middle" width="400px"/>
+                        <img src="proj2images/step1.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/step2.png" align="middle" width="400px"/>
+                        <img src="proj2images/step2.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/step3.png" align="middle" width="400px"/>
+                        <img src="proj2images/step3.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/step4.png" align="middle" width="400px"/>
+                        <img src="proj2images/step4.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/step5.png" align="middle" width="400px"/>
+                        <img src="proj2images/step5.png" align="middle" width="200px"/>
                       
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="proj2images/orapple.png" align="middle" width="400px"/>
-                      
+                        <img src="proj2images/orapple.png" align="middle" width="200px"/>
+                        <figcaption>Orapple!</figcaption>
                         <br>
                     </td>
                 
