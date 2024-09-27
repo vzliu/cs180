@@ -46,17 +46,13 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/monastery.png" align="middle" width="400px"/>
+                        <img src="proj2images/cameraman.png" align="middle" width="400px"/>
+                          <figcaption>Original</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="images/cathedral.png" align="middle" width="400px"/>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="images/tobolsk.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
+                        <figcaption>Gradient Magnitude</figcaption>
                         <br>
                     </td>
                 </tr>
@@ -66,64 +62,53 @@
         </div>
         <br>
         
-        <p>
-            All in all, while this approach worked for the lower resolution images depicted above, it was too inefficient for the higher resolution .tif images.
-        </p>
         <br>
 
 
         <h3 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter</h3>
 
         <p>
-            To speedup the processing of .tif images, I worked off the foundation I built in part 1. However, instead of working with the full-size 
-            image like in part 1, I rescaled the images first by a factor of 0.5. Then, I used the displacements from my recursive calls to adjust the 
-            shifted channel, before adding additional displacements and scaling up to account for the downsizing from earlier. 
-
-            In other words, I started with the smallest image and increased the image size as I went down the pyramid while adjusting the estimate (based off
-            the previous estimate). This drastically reduced the image processing times to 1 minute or less. 
-
-            Again, I crop 10% of 
-            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
+            As seen above, the finite difference filter produced images that were still rather noisy, especially in the background. To address this, 
+            I convolve with a Gaussian filter.
         </p>
-
-
-        <p align="middle" >Not all photos are displayed due to most of them looking similar to photos in the next section. Note: Some images don't display well before implementing Sobel edge detection (please see Bells and Whistles section)</p>
-
 
         <div align="middle">
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="images/emir_without.png" align="middle" width="400px"/>
+                        <img src="proj2images/1.png" align="middle" width="400px"/>
+                        <figcaption>2 convolutions</figcaption>
                         <br>
                     </td>
-                    <td>
-                        <img src="images/train_without.png" align="middle" width="400px"/>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="images/three_generations_without.png" align="middle" width="400px"/>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="images/self_portrait_without.png" align="middle" width="400px"/>
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="images/lady_without.png" align="middle" width="400px"/>
-                        <br>
-                    </td>
-                   
                 </tr>
             </table>
         </div>
 
+
+         <p>
+            <strong>What differences do you see?</strong>
+            <br>
+            I see that the background noise has been significantly reduced. The edges of the man and camera are also more pronounced.
+        </p>
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
+                    <td>
+                       <img src="proj2images/2.png" align="middle" width="400px"/>
+                        <figcaption>1 convolution (Derivative of Gaussian Filters)</figcaption>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+         <p>
+            <strong>Now we can do the same thing with a single convolution instead of two by creating a derivative of gaussian filters. Convolve the gaussian with D_x and D_y and display the resulting DoG filters as images.</strong>
+            <br>
+            I see that the background noise has been significantly reduced. The edges of the man and camera are also more pronounced.
+        </p>
        
-        <br>
        
 
        
@@ -133,8 +118,8 @@
 
 
         <p>
-            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
-            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
+            For this part, I use the Gaussian filter to get the low frequencies in an image. I then subtract the resulting blurred version (low frequencies) from the original image to get the high frequencies of the image. 
+            I then add the high frequencies to the original image to get the "sharper" looking image.
         </p>
 
 
@@ -142,67 +127,67 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
-                      
+                        <img src="proj2images/taj.png" align="middle" width="400px"/>
+                          <figcaption>Original</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
-                      
+                        <img src="proj2images/taj_sharpened.png" align="middle" width="400px"/>
+                      <figcaption>Sharpened</figcaption>
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                        <img src="iproj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
@@ -223,67 +208,67 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
@@ -304,70 +289,53 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="images/emir_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="images/harvesters_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/icon_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/lady_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="images/melons_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                     <td>
-                        <img src="images/onion_church_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
                       
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="images/self_portrait_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                     <td>
-                        <img src="images/three_generations_with_sobel.png" align="middle" width="400px"/>
+                        <img src="proj2images/after.png" align="middle" width="400px"/>
 
                         <br>
                     </td>
                 </tr>
-                <tr align="center">
-                    <td>
-                        <img src="images/church_with_sobel.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                    <td>
-                        <img src="images/sculture_with_sobel.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="images/train_with_sobel.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
+               
                    
             </table>
         </div>
