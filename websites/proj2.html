@@ -38,7 +38,9 @@
 
         <p>
            In this part, I took the partial derivative in x and y of the cameraman image by convolving with finite difference operators D_x and D_y. I then
-            calculated the gradient magnitude and binarized to get edges.
+            calculated the gradient magnitude and binarized to get edges. To compute the gradient magnitude, which measures the rate of change in pixel intensity,
+            I used partial derivatives of the image intensity function in both the horizontal and vertical directions. Then, I combined these two changes to get the "gradient magnitude."
+            The bigger the gradient magnitude, the more likely there is an edge due to drastic changes in that area in an image.
         </p>
 
         
@@ -427,7 +429,24 @@
                         <br>
                     </td>
                 </tr>
-                 <tr align="center">
+                 
+                   
+            </table>
+        </div>
+
+        <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
+
+
+        <p>
+            Here I take the Gaussian and Laplacian stacks I implemented previously to blend together the orange and apple. 
+            To do this, I first needed a mask which was basically half of each image vertically and created a Gaussian stack for the mask. Then,
+            I blended according to the proposed algorithm in the paper, and summed up the results to get the final orapple image.
+        </p>
+
+
+        <div align="middle">
+            <table style="width:100%">
+                <tr align="center">
                     <td>
                         <img src="proj2images/step1.png" align="middle" width="400px"/>
                       
@@ -461,73 +480,15 @@
                         <br>
                     </td>
                 
-                   
             </table>
         </div>
 
-        <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
-
-
-        <p>
-            All images except the Emir could be processed properly without further techniques beyond the image pyramid. However, for the Emir, I 
-            needed to use edge detection, which I accomplished with Sobel filter in the CV library.
-        </p>
-
-
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-
-                        <br>
-                    </td>
-                </tr>
-               
-                   
-            </table>
-        </div>
+         <p>
+            <strong>Tell us about the most important thing you learned from this project!</strong>
+            <br>
+            The most important thing I learned from this project is that no matter how good code is sometimes, it is equally important to have good images. 
+             I ran into so many problems with the hyrbid images and most of them were resolved by simply switching images. 
+             Overall, the coolest part about this project is that I found that with just a little bit of math, visually stunning results could be produced!        </p>
 
         
     </div>
