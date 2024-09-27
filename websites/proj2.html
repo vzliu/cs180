@@ -37,9 +37,8 @@
         <h3 align="middle">Part 1.1: Finite Difference Operator</h3>
 
         <p>
-           For the single-scale low resolution images, I iterated over a [-15, 15] window of displacements, keeping track of the (x, y) displacements 
-            with the best score. I arbitrarily chose to use Euclidean distance, sqrt(sum(sum((image1-image2).^2))), as my scoring metric. I crop 10% of 
-            the image border on all sides. I found this made alignment better in some photos, possibly due to less confounding pixels.
+           In this part, I took the partial derivative in x and y of the cameraman image by convolving with finite difference operators D_x and D_y. I then
+            calculated the gradient magnitude and binarized to get edges.
         </p>
 
         
@@ -47,7 +46,7 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="images/monastery.png" align="middle" width="400px"/>
+                        <img src="proj2images/monastery.png" align="middle" width="400px"/>
                         <br>
                     </td>
                     <td>
