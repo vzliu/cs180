@@ -94,6 +94,16 @@
         <div align="middle">
             <table style="width:100%">
                 <tr align="center">
+                     <td>
+                        <img src="proj3images/murray1.jpg" align="middle" width="400px"/>
+                          <figcaption>Jamal Murray</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj3images/jokic.jpg" align="middle" width="400px"/>
+                        <figcaption>Nikola Jokic</figcaption>
+                        <br>
+                    </td>
                     <td>
                         <img src="proj3images/mid_way_face.png" align="middle" width="400px"/>
                           <figcaption>Mid-Way Face of Murray and Jokic</figcaption>
@@ -110,8 +120,9 @@
 
 
         <p>
-            For this part, I use the Gaussian filter to get the low frequencies in an image. I then subtract the resulting blurred version (low frequencies) from the original image to get the high frequencies of the image. 
-            I then add the high frequencies to the original image to get the "sharper" looking image.
+            For this part, I inverse wrapped Murray into Jokic. I created an animation of this controlled shape warping and cross-dissolving process.
+            To do this, I used the same algorithm for calculating the mid-way face from the previous part (compute affine matrix then inverse warp) 
+            but altered theta for each frame to get a smooth transition.
         </p>
 
 
@@ -119,71 +130,17 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/taj.jpg" align="middle" width="400px"/>
-                          <figcaption>Original</figcaption>
+                        <img src="proj3images/morph.gif" align="middle" width="400px"/>
+                          <figcaption>Murray Morphing into Jokic</figcaption>
                         <br>
                     </td>
-                    <td>
-                        <img src="proj2images/taj_sharpened.png" align="middle" width="400px"/>
-                      <figcaption>Sharpened</figcaption>
-                        <br>
-                    </td>
+                   
                 </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/brownie_1.jpg" align="middle" width="400px"/>
-                        <figcaption>Original</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/brownie_sharpened_1.png" align="middle" width="400px"/>
-                        <figcaption>Sharpened</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="proj2images/chinatown.jpg" align="middle" width="400px"/>
-                         <figcaption>Original</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/chinatown_sharpened.png" align="middle" width="400px"/>
-                       <figcaption>Sharpened</figcaption>
-                        <br>
-                    </td>
-                </tr>
+                
+                   
                 </table>
 
 
-
-
-                <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/brownie_3.jpg" align="middle" width="400px"/>
-                        <figcaption>Original</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/brownie_blurred.png" align="middle" width="400px"/>
-                        <figcaption>Blur</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/brownie_sharpened_again.png" align="middle" width="400px"/>
-                        <figcaption>Sharpen Again</figcaption>
-                        <br>
-                    </td>
-                </tr>      
-            </table>
-
-             <p>
-            <strong>Also for evaluation, pick a sharp image, blur it and then try to sharpen it again. Compare the original and the sharpened image and report your observations.</strong>
-            <br>
-            Despite the image looking sharper than the blurred version before and my best attempts at sharpening it as much as possible, there is a clear loss of information. This can be seen most with edges in the image, such as along the arms, along the edges of the hat, and along the bench, where the contrast in colors is greatest. The sharpened version is unable to replicate the same smoothness in edges because the blurring from earlier removed the high frequency signals. We are unable to get those back exactly and instead have to use the other high frequency signals now in the sharpened version.
-        </p>
-        </div>
 
              <br>
              <br>
@@ -192,9 +149,11 @@
 
 
         <p>
-            For this part, I separated two images into high frequencies and low frequencies, and combine them together to create hybrid images. The 
-            idea behind this is that at far distances, only low frequencies in an image could be seen, while at a closer distance, high frequencies
-            can also be seen. This results in an application of frequencies where you can see two things in one image at different distances.
+            For this part, I used the FEI dataset to compute the average face shape of the whole population. I then morphed each of the faces in the 
+            dataset into the average shape. At the time of this project, I am feeling unwell so I used Jennie's face (from Blackpink) instead. I morphed her face 
+            into the average, then the average face into her face. The results look rather uncanny -- the average face is slimmer than Jennie's so her face slimmed
+            and her eyes became a bit bigger. On the other hand, Jennie has a lot of hair so the resulting morphed average image has "pulled up" hair. The eyes also slant upwards
+            more compared to before.
         </p>
 
 
@@ -202,107 +161,87 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/DerekPicture.jpg" align="middle" width="400px"/>
-                          <figcaption>Derek</figcaption>
+                        <img src="proj3images/average_face.jpg" align="middle" width="400px"/>
+                          <figcaption>Average Face of FEI Dataset Population</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/nutmeg.jpg" align="middle" width="400px"/>
-                      <figcaption>Nutmeg</figcaption>
+                        <img src="proj3images/warped_im0.jpg" align="middle" width="400px"/>
+                      <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/derek_nutmeg_2.png" align="middle" width="600px"/>
-                      <figcaption>Derek and Nutmeg</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/brownie_original.jpg" align="middle" width="400px"/>
-                        <figcaption>Brownie the dog</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/dobby6.jpg" align="middle" width="400px"/>
-                        <figcaption>Dobby</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/brownie_dobby_5.png" align="middle" width="600px"/>
-                        <figcaption>Brownie and Dobby</figcaption>
+                        <img src="proj3images/warped_im1.jpg" align="middle" width="600px"/>
+                      <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="proj2images/smiling.jpg" align="middle" width="400px"/>
-                        <figcaption>Smiling</figcaption>
+                        <img src="proj3images/warped_im188.jpg" align="middle" width="400px"/>
+                        <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/angry.jpg" align="middle" width="400px"/>
-                        <figcaption>Angry</figcaption>
+                        <img src="proj3images/warped_im189.jpg" align="middle" width="400px"/>
+                        <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/failure.png" align="middle" width="600px"/>
-                        <figcaption>Failure (Images unusable)</figcaption>
+                        <img src="proj3images/warped_im344.jpg" align="middle" width="600px"/>
+                        <figcaption>Face Warped into Average</figcaption>
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <img src="proj3images/warped_im345.jpg" align="middle" width="400px"/>
+                        <figcaption>Face Warped into Average</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj3images/warped_im378.jpg" align="middle" width="400px"/>
+                        <figcaption>Face Warped into Average</figcaption>
+                        <br>
+                    </td>
+                    <td>
+                        <img src="proj3images/warped_im379.jpg" align="middle" width="600px"/>
+                        <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="proj2images/cat.jpg" align="middle" width="400px"/>
-                         <figcaption>Cat</figcaption>
+                        <img src="proj3images/warped_im86.jpg" align="middle" width="400px"/>
+                         <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/dog.jpg" align="middle" width="400px"/>
-                       <figcaption>Dog</figcaption>
+                        <img src="proj3images/warped_im87.jpg" align="middle" width="400px"/>
+                       <figcaption>Face Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/dog_cat_final.png" align="middle" width="600px"/>
-                       <figcaption>Cat and Dog</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                 </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="proj2images/dog_fourier.png" align="middle" width="400px"/>
-                         <figcaption>Log Magnitude Fourier Transform for dog</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/cat_fourier.png" align="middle" width="400px"/>
-                       <figcaption>Log Magnitude Fourier Transform for cat</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/low_shiba_fourier.png" align="middle" width="400px"/>
-                       <figcaption>Log Magnitude Fourier Transform for low filter dog</figcaption>
+                        <img src="proj3images/jennie_cropped.jpg" align="middle" width="600px"/>
+                       <figcaption>Jennie</figcaption>
                         <br>
                     </td>
                 </tr>
                 <tr align="center">
                     <td>
-                        <img src="proj2images/low_cat_fourier.png" align="middle" width="400px"/>
-                         <figcaption>Log Magnitude Fourier Transform for low filter cat</figcaption>
+                        <img src="proj3images/jennie_morphed.jpg" align="middle" width="400px"/>
+                         <figcaption>Jennie Warped into Average</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/high_cat_fourier.png" align="middle" width="400px"/>
-                       <figcaption>Log Magnitude Fourier Transform for high filter cat</figcaption>
+                        <img src="proj3images/avg_face_morphed.jpg" align="middle" width="400px"/>
+                       <figcaption>Average Warped into Jennie</figcaption>
                         <br>
                     </td>
-                    <td>
-                        <img src="proj2images/final_image_fourier.png" align="middle" width="400px"/>
-                       <figcaption>Log Magnitude Fourier Transform for hybrid image</figcaption>
-                        <br>
-                    </td>
+                   
                 </tr>
+                
+             
                 
                
                 
@@ -315,7 +254,8 @@
 
 
         <p><center>
-            I implemented Gaussian and Laplacian stacks, which allowed for the combining of an orange and apple (the infamous orapple) later.
+           In this part, I created a caricature of Jennie's face by extrapolating from the population mean of smiling images. I want Jennie's face to smile
+            since she doesn't smile in her photo.
             </center>
         </p>
 
@@ -349,156 +289,12 @@
                         <br>
                     </td>
                 </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/l_0.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_1.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_2.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_3.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/l_4.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/og_0.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/og_1.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/og_2.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/og_3.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/og_4.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="proj2images/ol_0.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/ol_1.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/ol_2.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/ol_3.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/ol_4.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
+            
                  
                    
             </table>
         </div>
-             <br>
-             <br>
 
-        <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
-
-
-        <p><center>
-            Here I take the Gaussian and Laplacian stacks I implemented previously to blend together the orange and apple. 
-            To do this, I first needed a mask which was basically half of each image vertically and created a Gaussian stack for the mask. Then,
-            I blended according to the proposed algorithm in the paper, and summed up the results to get the final orapple image.
-            </center>
-        </p>
-
-
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/step1.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/step2.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/step3.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/step4.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/step5.png" align="middle" width="250px"/>
-                      
-                        <br>
-                    </td>
-                </tr>
-                 
-
-                    <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/orapple.png" align="middle" width="500px"/>
-                        <figcaption>Orapple!</figcaption>
-                        <br>
-                    </td>
-            </table>
-        </div>
-
-        <center><p>
-            <strong>Tell us about the most important thing you learned from this project!</strong>
-            <br>
-            The most important thing I learned from this project is that no matter how good code is sometimes, it is equally important to have good images. 
-             I ran into so many problems with the hyrbid images and most of them were resolved by simply switching images. 
-             Overall, the coolest part about this project is that I found that with just a little bit of math, visually stunning results could be produced!        
-        </p>
-
-        </center> 
     </div>
 </body>
 </html>
