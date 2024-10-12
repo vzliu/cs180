@@ -38,10 +38,11 @@
 
 
         <p>
-           In this part, I took the partial derivative in x and y of the cameraman image by convolving with finite difference operators D_x and D_y. I then
-            calculated the gradient magnitude and binarized to get edges. To compute the gradient magnitude, which measures the rate of change in pixel intensity,
-            I used partial derivatives of the image intensity function in both the horizontal and vertical directions. Then, I combined these two changes to get the "gradient magnitude."
-            The bigger the gradient magnitude, the more likely there is an edge due to drastic changes in that area in an image.
+           In this part, I defined 46 corresponding points on each image using the provided labeling tool. For images, I am using pictures of 
+            Jamal Murray and Nikola Jokic from the basketball team Denver Nuggets. Originally, I wanted to use a different set of images but I 
+            realized last minute that I was running into issues
+            because the images weren't the same size. Luckily, the NBA provides high quality profile shots of each player. Then, I compute a Delaunay 
+            triangulation for both images in preparation for morphing.
         </p>
 
         
@@ -49,25 +50,25 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/cameraman.png" align="middle" width="400px"/>
-                          <figcaption>Original</figcaption>
+                        <img src="proj3images/murray1.jpg" align="middle" width="400px"/>
+                          <figcaption>Jamal Murray</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/d_x.png" align="middle" width="400px"/>
-                        <figcaption>Convolve with D_x (Horizontal)</figcaption>
+                        <img src="proj3images/jokic.jpg" align="middle" width="400px"/>
+                        <figcaption>Nikola Jokic</figcaption>
                         <br>
                     </td>
                 </tr>
                  <tr align="center">
                     <td>
-                        <img src="proj2images/d_y.png" align="middle" width="400px"/>
-                          <figcaption>Convolve with D_y (Vertical)</figcaption>
+                        <img src="proj3images/murray_corr.png" align="middle" width="400px"/>
+                          <figcaption>Correspondence Points Murray</figcaption>
                         <br>
                     </td>
                     <td>
-                        <img src="proj2images/after.png" align="middle" width="400px"/>
-                        <figcaption>Gradient Magnitude</figcaption>
+                        <img src="proj3images/jokic_corr.png" align="middle" width="400px"/>
+                        <figcaption>Correspondence Points Jokic</figcaption>
                         <br>
                     </td>
                 </tr>
@@ -84,9 +85,8 @@
         <h2 align="middle">Part 2. Computing the "Mid-way Face"</h2>
 
         <p><center>
-            As seen above, the finite difference filter produced images that were still rather noisy, especially in the background. To address this, 
-            I convolve with a Gaussian filter to blur images, which helped to reduce noise in the background of images, then convolve again with the finite
-            difference operators.
+            To compute the mid-way face, I first computed the average shape of the two faces, created an affine transformation matrix then inverse warped each face into that shape, and finally 
+            averaged the colors together to get the resulting mid-way face image.
         </center>
         </p>
 
@@ -95,73 +95,12 @@
             <table style="width:100%">
                 <tr align="center">
                     <td>
-                        <img src="proj2images/blurred_camerman.png" align="middle" width="400px"/>
-                          <figcaption>Blurred Cameraman</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/dx.png" align="middle" width="400px"/>
-                      <figcaption>2 Convolutions dx</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/dy.png" align="middle" width="400px"/>
-                        <figcaption>2 Convolutions dy</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/1.png" align="middle" width="400px"/>
-                        <figcaption>2 Convolutions Gradient Magnitude</figcaption></figcaption>
+                        <img src="proj3images/mid_way_face.png" align="middle" width="400px"/>
+                          <figcaption>Mid-Way Face of Murray and Jokic</figcaption>
                         <br>
                     </td>
                 </tr>
                 </table>
-
-
-
-         <center><p>
-            <strong>What differences do you see?</strong>
-            <br>
-            I see that the background noise has been significantly reduced. The edges of the man and camera are also more pronounced.
-                
-        </p></center>
-
-
-             <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/blurred_camerman.png" align="middle" width="400px"/>
-                          <figcaption>Blurred Cameraman</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/DoG_x.png" align="middle" width="400px"/>
-                      <figcaption>1 Convolution dx</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj2images/DoG_y.png" align="middle" width="400px"/>
-                        <figcaption>1 Convolution dy</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj2images/2.png" align="middle" width="400px"/>
-                        <figcaption>1 Convolution (Derivative of Gaussian Filters) Gradient Magnitude</figcaption></figcaption>
-                        <br>
-                    </td>
-                </tr>
-                </table>
-
-         <p>
-            In the second part, I used a single convolution instead of two by creating a derivative of Gaussian filters. Since convolutions are associative, we are able
-    to get the same results as with two convolutions.
-        </p>
-       
        
  <br>
  <br>
