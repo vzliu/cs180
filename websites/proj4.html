@@ -69,32 +69,13 @@
         <h2 align="middle">Recover Homographies</h2>
 
         <p><center>
-            To compute the mid-way face, I first computed the average shape of the two faces, created an affine transformation matrix then inverse warped each face into that shape, and finally 
-            averaged the colors together to get the resulting mid-way face image.
+            To recover the homographies, I set up a system of linear equations to get H such that p’=Hp. After writing out the system of equations, I then use least
+            squares to solve.
         </center>
         </p>
 
 
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                     <td>
-                        <img src="proj3images/murray1.jpg" align="middle" width="400px"/>
-                          <figcaption>Jamal Murray</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/jokic1.jpg" align="middle" width="400px"/>
-                        <figcaption>Nikola Jokic</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/mid_way_face.png" align="middle" width="400px"/>
-                          <figcaption>Mid-Way Face of Murray and Jokic</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                </table>
+      
        
  <br>
  <br>
@@ -104,163 +85,18 @@
 
 
         <p>
-            For this part, I inverse wrapped Murray into Jokic. I created an animation of this controlled shape warping and cross-dissolving process.
-            To do this, I used the same algorithm for calculating the mid-way face from the previous part (compute affine matrix then inverse warp) 
-            but altered theta for each frame to get a smooth transition.
+            For this part, I inverse wrapped the two images above using the homography calculated earlier. 
         </p>
 
 
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/morph.gif" align="middle" width="400px"/>
-                          <figcaption>Murray Morphing into Jokic</figcaption>
-                        <br>
-                    </td>
-                   
-                </tr>
-                
-                   
-                </table>
-
-
-
-             <br>
-             <br>
 
          <h2 align="middle">Image Rectification</h2>
 
 
-        <p>
-            For this part, I used the FEI dataset to compute the average face shape of the whole population. I then morphed each of the faces in the 
-            dataset into the average shape. At the time of this project, I am feeling unwell so I used Jennie's face (from Blackpink) instead. I morphed her face 
-            into the average, then the average face into her face. The results look rather uncanny -- the average face is slimmer than Jennie's so her face slimmed
-            and her eyes became a bit bigger. On the other hand, Jennie has a lot of hair so the resulting morphed average image has "pulled up" hair. The eyes also slant upwards
-            more compared to before.
-        </p>
 
-
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/average_face.jpg" align="middle" width="400px"/>
-                          <figcaption>Average Face of FEI Dataset Population</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im0.jpg" align="middle" width="400px"/>
-                      <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im1.jpg" align="middle" width="400px"/>
-                      <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/warped_im188.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im189.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im344.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/warped_im345.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im378.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im379.jpg" align="middle" width="400px"/>
-                        <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                 <tr align="center">
-                    <td>
-                        <img src="proj3images/warped_im86.jpg" align="middle" width="400px"/>
-                         <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/warped_im87.jpg" align="middle" width="400px"/>
-                       <figcaption>Face Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/jennie_cropped.jpg" align="middle" width="400px"/>
-                       <figcaption>Jennie</figcaption>
-                        <br>
-                    </td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/jennie_morphed (1).jpg" align="middle" width="400px"/>
-                         <figcaption>Jennie Warped into Average</figcaption>
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/avg_face_morphed.jpg" align="middle" width="400px"/>
-                       <figcaption>Average Warped into Jennie</figcaption>
-                        <br>
-                    </td>
-                   
-                </tr>
-                
-             
-                
-               
-                
-                   
-            </table>
-        </div>
- <br>
 
         <h2 align="middle">Blend the images into a mosaic</h2>
 
-
-        <p><center>
-           In this part, I created a caricature of Jennie's face by extrapolating from the population mean of smiling images. I want Jennie's face to smile
-            since she doesn't smile in her photo.
-            </center>
-        </p>
-
-
-        <div align="middle">
-            <table style="width:100%">
-                <tr align="center">
-                    <td>
-                        <img src="proj3images/average_smiling_face.jpg" align="middle" width="400px"/>
-                        <figcaption>Average of all Smiling Faces in FEI Dataset</figcaption>
-                      
-                        <br>
-                    </td>
-                    <td>
-                        <img src="proj3images/jennie_smiling.png" align="middle" width="400px"/>
-                        <figcaption>Jennie Warped to Smiling (I'm so sorry Jennie)</figcaption>
-
-                        <br>
-                    </td>
-                    
-                </tr>
             
                  
                    
